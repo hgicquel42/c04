@@ -41,24 +41,23 @@ int	ft_neg(char	*str, int *i)
 	return (s);
 }
 
-int	ft_satoi(char *str, int *i, int s)
+int	ft_satoi(char *str, int s)
 {
 	int	n;
+	int	i;
+	int	x;
 
 	n = 0;
-	while (str[*i] >= '0' && str[*i] <= '9')
+	i = 0;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
 		n *= 10;
-		if (n < 0)
-			n -= str[*i] - '0';
-		else
-			n += str[*i] - '0';
+		x = str[i] - '0';
 		if (s)
-		{
-			n *= -1;
-			s = 0;
-		}
-		(*i)++;
+			n -= x;
+		else
+			n += x;
+		i++;
 	}
 	return (n);
 }
@@ -73,14 +72,19 @@ int	ft_atoi(char *str)
 	while (ft_isspace(str[i]))
 		i++;
 	s = ft_neg(str, &i);
-	n = ft_satoi(str, &i, s);
+	n = ft_satoi(str + i, s);
 	return (n);
 }
 
 // int	main(void)
 // {
-// 	char	str[] = "   --+-2147483647";
-
-// 	printf("%d\n", ft_atoi(str));
-// 	return (0);
+// 	printf("42:%d\n", ft_atoi("  \n  42t4457"));
+// 	printf("-42:%d\n", ft_atoi(" --+-42sfs:f545"));
+// 	printf("0:%d\n", ft_atoi("\0 1337"));
+// 	printf("0:%d\n", ft_atoi("-0"));
+// 	printf("0:%d\n", ft_atoi(" - 1 3 2 5 6 3 2 1 6 7"));
+// 	printf("-1325632167:%d\n", ft_atoi("-1325632167"));
+// 	printf("-100:%d\n", ft_atoi("-100"));
+// 	printf("min:%d\n", ft_atoi("\t---+2147483648"));
+// 	printf("max:%d\n", ft_atoi("\v2147483647"));
 // }

@@ -12,6 +12,21 @@
 
 #include <unistd.h>
 
+int	ft_isspace(char c)
+{
+	if (c == '\t')
+		return (1);
+	if (c == '\n')
+		return (1);
+	if (c == '\v')
+		return (1);
+	if (c == '\f')
+		return (1);
+	if (c == ' ')
+		return (1);
+	return (0);
+}
+
 void	ft_putnbr_lbase(int nb, char *base, int l)
 {
 	char	c;
@@ -32,16 +47,15 @@ void	ft_putnbr_lbase(int nb, char *base, int l)
 
 void	ft_putnbr_base(int nb, char *base)
 {
-	char	c;
 	int		l;
 	int		i;
 
 	l = 0;
 	while (base[l])
 	{
-		if (base[l] == '-')
+		if (base[l] == '-' || base[l] == '+')
 			return ;
-		if (base[l] == '+')
+		if (ft_isspace(base[l]))
 			return ;
 		i = 0;
 		while (base[i])
@@ -58,13 +72,18 @@ void	ft_putnbr_base(int nb, char *base)
 
 // int	main(void)
 // {
+// 	write(1, "42:", 3);
 // 	ft_putnbr_base(42, "0123456789");
-// 	write(1, "\n", 1);
-// 	ft_putnbr_base(2147483647, "01");
-// 	write(1, "\n", 1);
-// 	ft_putnbr_base(-42, "01");
-// 	write(1, "\n", 1);
-// 	ft_putnbr_base(-2147483648, "01");
-// 	write(1, "\n", 1);
-// 	return (0);
+// 	write(1, "\n2a:", 4);
+// 	ft_putnbr_base(42, "0123456789abcdef");
+// 	write(1, "\n-2a:", 5);
+// 	ft_putnbr_base(-42, "0123456789abcdef");
+// 	write(1, "\n:", 2);
+// 	ft_putnbr_base(42, "");
+// 	write(1, "\n:", 2);
+// 	ft_putnbr_base(42, "0");
+// 	write(1, "\n:", 2);
+// 	ft_putnbr_base(42, "+-0123456789abcdef");
+// 	write(1, "\n:", 2);
+// 	ft_putnbr_base(42, "\t0123456789abcdef");
 // }
