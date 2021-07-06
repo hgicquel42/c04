@@ -38,9 +38,9 @@ void	ft_putnbr_lbase(int nb, char *base, int l)
 	}
 	else
 		c = base[nb % l];
-	if (nb < -l)
+	if (nb <= -l)
 		ft_putnbr_lbase(-(nb / l), base, l);
-	if (nb > l)
+	if (nb >= l)
 		ft_putnbr_lbase(nb / l, base, l);
 	write(1, &c, 1);
 }
