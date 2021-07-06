@@ -12,19 +12,16 @@
 
 // #include <stdio.h>
 
-int	ft_isspace(char c)
+int	ft_include(char	*str, int l, char c)
 {
-	if (c == '\t')
-		return (1);
-	if (c == '\n')
-		return (1);
-	if (c == '\v')
-		return (1);
-	if (c == '\f')
-		return (1);
-	if (c == ' ')
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (i < l && str[i] != c)
+		i++;
+	if (i == l)
+		return (-1);
+	return (i);
 }
 
 int	ft_neg(char	*str, int *i)
@@ -51,13 +48,9 @@ int	ft_satoi(char *str, int s, char *base, int l)
 	i = 0;
 	while (str[i])
 	{
-		x = 0;
-		while (base[x] != str[i])
-		{
-			if (x == l - 1)
-				return (0);
-			x++;
-		}
+		x = ft_include(base, l, str[i]);
+		if (x == -1)
+			break ;
 		n *= l;
 		if (s)
 			n -= x;
@@ -78,7 +71,7 @@ int	ft_check_base(char *base)
 	{
 		if (base[l] == '-' || base[l] == '+')
 			return (0);
-		if (ft_isspace(base[l]))
+		if (base[l] == ' ' || (base[l] >= 9 && base[l] <= 13))
 			return (0);
 		i = 0;
 		while (base[i])
@@ -103,7 +96,7 @@ int	ft_atoi_base(char *str, char *base)
 	if (l < 2)
 		return (0);
 	i = 0;
-	while (ft_isspace(str[i]))
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	s = ft_neg(str, &i);
 	n = ft_satoi(str + i, s, base, l);
@@ -141,4 +134,10 @@ int	ft_atoi_base(char *str, char *base)
 // 	printf("%d\n", ft_atoi_base("-0", "01"));
 // 	printf("%d\n", ft_atoi_base("-0", "0123456789abcdef"));
 // 	printf("%d\n", ft_atoi_base("-0", "01234567"));
+// }
+
+// int	main(int argc, char **argv)
+// {
+// 	printf("%d", ft_atoi_base(argv[1], argv[2]));
+// 	(void) argc;
 // }
